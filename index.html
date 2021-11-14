@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Cookie Clicker!</title>
+    </head>
+    <body>
+        <p>Cookies: <span id="score">0</span></p>
+        <h1>Cookie Clicker!</h1>
+        <img src = "cookie.png" onclick = moreCookies(clickPower)></img>
+    
+        <button onclick=buyCursor()>Buy a cursor<br>A cursor will give you 1 cookies per second!<br>Cost: [<span id=cursorcost>50</span>].<br>You currently have <span id=cursornum>0</span> cursors.</button>
+    
+    
+        <button onclick=buyRobot()>Buy a robot<br>A robot will give you 3 cookies per second!<br>Cost: [<span id=robotcost>150</span>].<br>You currently have <span id=robotnum>0</span> robots.)</button>
+        
+    
+        <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    
+    
+    
+    
+        <script>
+            var cursorcost = 50;
+            var cursornum = 0;
+            
+            var cookies = 0;
+            var clickPower = 1;
+            
+            var robotcost = 150;
+            var robotnum = 0;
+            
+            function buyCursor(){
+                if(cookies >= cursorcost){
+                    cookies = cookies - cursorcost;
+                    cursornum += 1
+                    cursorcost = Math.round(cursorcost * 2.5)
+                    
+                    document.getElementById("score").innerHTML = cookies;
+                    document.getElementById("cursornum").innerHTML = cursornum;
+                    document.getElementById("cursorcost").innerHTML = cursorcost;
+                    
+                    clickPower += cursornum;
+                }else{
+                    alert("You do not have enough Cookies! You currently have " + String(cookies) + "Cookies. You need " + String(cursorcost) + "Cookies to buy this item. You need " + String(cursorcost-cookies) + "Cookies to buy this item.")
+                }
+            }
+            
+            function buyRobot(){
+                if(cookies >= robotcost){
+                    cookies = cookies - robotcost;
+                    robotnum += 1
+                    robotcost = robotcost * 2
+                    
+                    document.getElementById("score").innerHTML = cookies;
+                    document.getElementById("robotnum").innerHTML = robotnum;
+                    document.getElementById("robotcost").innerHTML = robotcost;
+                }else{
+                    alert("You do not have enough Cookies! You currently have " + String(cookies) + " Cookies. You need " + String(robotcost) + " Cookies to buy this item. You need " + String(robotcost-cookies) + " more Cookies to buy this item.")
+                }
+            }
+            
+            document.getElementById("score").innerHTML = cookies;
+            
+            function moreCookies(amount){
+                cookies = cookies + amount;
+            }
+            
+            function addCookies(){
+                var totalcookiestoadd = robotnum * 3 + cursornum * 1;
+                cookies += totalcookiestoadd;
+                document.getElementById("score").innerHTMl = cookies;
+            }
+            
+            setInterval(function(){
+                addCookies();
+                document.getElementById("score").innerHTML = cookies;
+            }, 1000);
+            
+    
+        </script>
+    </body>
+</html>
